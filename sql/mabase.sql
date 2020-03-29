@@ -162,7 +162,6 @@ create table profmatiere
 (
    idUser               int not null,
    idMat int,
-   idUser int,
    statut            int,
    primary key (idUser)
 );
