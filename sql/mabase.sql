@@ -161,7 +161,9 @@ create table inscription
 create table profmatiere
 (
    idUser               int not null,
-   attribut1            int,
+   idMat int,
+   idUser int,
+   statut            int,
    primary key (idUser)
 );
 
@@ -180,13 +182,16 @@ create table pedagogie
 /*==============================================================*/
 create table matiereserie
 (
+   idMatSerie int not null,
+   idMat int,
+   idSerie int,
    coefficient          int
 );
 
-alter table Classe add constraint FK_classeserie foreign key ()
+alter table Classe add constraint FK_classeserie foreign key (idSerie)
       references Serie on delete restrict on update restrict;
 
-alter table Classe add constraint FK_classeannee foreign key ()
+alter table Classe add constraint FK_classeannee foreign key (idAnnee)
       references AnneeAcademique on delete restrict on update restrict;
 
 alter table Eleve add constraint FK_Generalisation_1 foreign key (idUser)
@@ -195,10 +200,10 @@ alter table Eleve add constraint FK_Generalisation_1 foreign key (idUser)
 alter table Eleve add constraint FK_parenteleve foreign key (Par_idUser)
       references Parent (idUser) on delete restrict on update restrict;
 
-alter table Evaluation add constraint FK_evamatserie foreign key ()
+alter table Evaluation add constraint FK_evamatserie foreign key (idMatSerie)
       references matiereserie on delete restrict on update restrict;
 
-alter table Note add constraint FK_evanote foreign key ()
+alter table Note add constraint FK_evanote foreign key (idEva)
       references Evaluation on delete restrict on update restrict;
 
 alter table Note add constraint FK_elevenote foreign key (idUser)
@@ -219,7 +224,7 @@ alter table inscription add constraint FK_inscriptionclasse foreign key (idClass
 alter table inscription add constraint FK_inscriptioneleve foreign key (idUser)
       references Eleve (idUser) on delete restrict on update restrict;
 
-alter table profmatiere add constraint FK_profmatiere foreign key ()
+alter table profmatiere add constraint FK_profmatiere foreign key (idMat)
       references Matiere on delete restrict on update restrict;
 
 alter table profmatiere add constraint FK_matiereprof foreign key (idUser)
@@ -228,11 +233,11 @@ alter table profmatiere add constraint FK_matiereprof foreign key (idUser)
 alter table pedagogie add constraint FK_pedagogieeleve foreign key (idUser)
       references Eleve (idUser) on delete restrict on update restrict;
 
-alter table pedagogie add constraint FK_pedagogiematiere foreign key ()
+alter table pedagogie add constraint FK_pedagogiematiere foreign key (idMatSerie)
       references matiereserie on delete restrict on update restrict;
 
-alter table matiereserie add constraint FK_seriematiere foreign key ()
+alter table matiereserie add constraint FK_seriematiere foreign key (idMat)
       references Matiere on delete restrict on update restrict;
 
-alter table matiereserie add constraint FK_matiereserie foreign key ()
+alter table matiereserie add constraint FK_matiereserie foreign key (idSerie)
       references Serie on delete restrict on update restrict;
