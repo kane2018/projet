@@ -20,13 +20,13 @@ drop table if exists Surveillant;
 
 drop table if exists Utilisateur;
 
-drop table if exists association10;
+drop table if exists inscription;
 
-drop table if exists association11;
+drop table if exists profmatiere;
 
-drop table if exists association13;
+drop table if exists pedagogie;
 
-drop table if exists association8;
+drop table if exists matiereserie;
 
 /*==============================================================*/
 /* Table : AnneeAcademique                                      */
@@ -145,9 +145,9 @@ create table Utilisateur
 );
 
 /*==============================================================*/
-/* Table : association10                                        */
+/* Table : inscription                                        */
 /*==============================================================*/
-create table association10
+create table inscription
 (
    idUser               int not null,
    idClasse             int not null,
@@ -156,9 +156,9 @@ create table association10
 );
 
 /*==============================================================*/
-/* Table : association11                                        */
+/* Table : profmatiere                                        */
 /*==============================================================*/
-create table association11
+create table profmatiere
 (
    idUser               int not null,
    attribut1            int,
@@ -166,9 +166,9 @@ create table association11
 );
 
 /*==============================================================*/
-/* Table : association13                                        */
+/* Table : pedagogie                                        */
 /*==============================================================*/
-create table association13
+create table pedagogie
 (
    idUser               int not null,
    valide               bool,
@@ -176,63 +176,63 @@ create table association13
 );
 
 /*==============================================================*/
-/* Table : association8                                         */
+/* Table : matiereserie                                         */
 /*==============================================================*/
-create table association8
+create table matiereserie
 (
    coefficient          int
 );
 
-alter table Classe add constraint FK_association3 foreign key ()
+alter table Classe add constraint FK_classeserie foreign key ()
       references Serie on delete restrict on update restrict;
 
-alter table Classe add constraint FK_association9 foreign key ()
+alter table Classe add constraint FK_classeannee foreign key ()
       references AnneeAcademique on delete restrict on update restrict;
 
 alter table Eleve add constraint FK_Generalisation_1 foreign key (idUser)
       references Utilisateur (idUser) on delete restrict on update restrict;
 
-alter table Eleve add constraint FK_association2 foreign key (Par_idUser)
+alter table Eleve add constraint FK_parenteleve foreign key (Par_idUser)
       references Parent (idUser) on delete restrict on update restrict;
 
-alter table Evaluation add constraint FK_association14 foreign key ()
-      references association8 on delete restrict on update restrict;
+alter table Evaluation add constraint FK_evamatserie foreign key ()
+      references matiereserie on delete restrict on update restrict;
 
-alter table Note add constraint FK_association1 foreign key ()
+alter table Note add constraint FK_evanote foreign key ()
       references Evaluation on delete restrict on update restrict;
 
-alter table Note add constraint FK_association12 foreign key (idUser)
+alter table Note add constraint FK_elevenote foreign key (idUser)
       references Eleve (idUser) on delete restrict on update restrict;
 
-alter table Parent add constraint FK_Generalisation_2 foreign key (idUser)
+alter table Parent add constraint FK_userparent foreign key (idUser)
       references Utilisateur (idUser) on delete restrict on update restrict;
 
-alter table Professeur add constraint FK_Generalisation_3 foreign key (idUser)
+alter table Professeur add constraint FK_userprof foreign key (idUser)
       references Utilisateur (idUser) on delete restrict on update restrict;
 
-alter table Surveillant add constraint FK_Generalisation_4 foreign key (idUser)
+alter table Surveillant add constraint FK_usersurv foreign key (idUser)
       references Utilisateur (idUser) on delete restrict on update restrict;
 
-alter table association10 add constraint FK_association10 foreign key (idClasse)
+alter table inscription add constraint FK_inscriptionclasse foreign key (idClasse)
       references Classe (idClasse) on delete restrict on update restrict;
 
-alter table association10 add constraint FK_association10 foreign key (idUser)
+alter table inscription add constraint FK_inscriptioneleve foreign key (idUser)
       references Eleve (idUser) on delete restrict on update restrict;
 
-alter table association11 add constraint FK_association11 foreign key ()
+alter table profmatiere add constraint FK_profmatiere foreign key ()
       references Matiere on delete restrict on update restrict;
 
-alter table association11 add constraint FK_association11 foreign key (idUser)
+alter table profmatiere add constraint FK_matiereprof foreign key (idUser)
       references Professeur (idUser) on delete restrict on update restrict;
 
-alter table association13 add constraint FK_association13 foreign key (idUser)
+alter table pedagogie add constraint FK_pedagogieeleve foreign key (idUser)
       references Eleve (idUser) on delete restrict on update restrict;
 
-alter table association13 add constraint FK_association13 foreign key ()
-      references association8 on delete restrict on update restrict;
+alter table pedagogie add constraint FK_pedagogiematiere foreign key ()
+      references matiereserie on delete restrict on update restrict;
 
-alter table association8 add constraint FK_association8 foreign key ()
+alter table matiereserie add constraint FK_seriematiere foreign key ()
       references Matiere on delete restrict on update restrict;
 
-alter table association8 add constraint FK_association8 foreign key ()
+alter table matiereserie add constraint FK_matiereserie foreign key ()
       references Serie on delete restrict on update restrict;
