@@ -33,9 +33,10 @@ drop table if exists matiereserie;
 /*==============================================================*/
 create table AnneeAcademique
 (
-   idAnnee              int,
+   idAnnee              int not null auto_increment,
    libelle              varchar(254),
-   encours              int
+   encours              int,
+   primary key(idAnnee)
 );
 
 /*==============================================================*/
@@ -43,8 +44,10 @@ create table AnneeAcademique
 /*==============================================================*/
 create table Classe
 (
-   idClasse             int not null,
+   idClasse             int not null auto_increment,
    nom                  varchar(254),
+   idSerie              int not null,
+   idAnnee              int not null,
    primary key (idClasse)
 );
 
@@ -65,8 +68,10 @@ create table Eleve
 /*==============================================================*/
 create table Evaluation
 (
-   idEva                int,
-   type                 varchar(254)
+   idEva                int not null auto_increment,
+   idMatSerie           int not null,
+   type                 varchar(254),
+   primary key (idEva)
 );
 
 /*==============================================================*/
@@ -74,8 +79,9 @@ create table Evaluation
 /*==============================================================*/
 create table Matiere
 (
-   idMat                int,
-   nomMat               varchar(254)
+   idMat                int not null auto_increment,
+   nomMat               varchar(254),
+   primary key (idMat)
 );
 
 /*==============================================================*/
@@ -83,10 +89,12 @@ create table Matiere
 /*==============================================================*/
 create table Note
 (
+   idNote               int not null auto_increment,
+   idEva                int not null,
    idUser               int not null,
-   idNote               int,
    note                 float,
-   justification        varchar(254)
+   justification        varchar(254),
+   primary key (idNote)
 );
 
 /*==============================================================*/
@@ -114,8 +122,9 @@ create table Professeur
 /*==============================================================*/
 create table Serie
 (
-   idSerie              int,
-   nomSerie             varchar(254)
+   idSerie              int not null auto_increment,
+   nomSerie             varchar(254),
+   primary key (idSerie)
 );
 
 /*==============================================================*/
@@ -133,7 +142,7 @@ create table Surveillant
 /*==============================================================*/
 create table Utilisateur
 (
-   idUser               int not null,
+   idUser               int not null auto_increment,
    prenom               varchar(254),
    nom                  varchar(254),
    telephone            varchar(254),
@@ -149,10 +158,11 @@ create table Utilisateur
 /*==============================================================*/
 create table inscription
 (
+   idIns                int not null auto_increment,
    idUser               int not null,
    idClasse             int not null,
    valide               bool,
-   primary key (idUser, idClasse)
+   primary key (idIns)
 );
 
 /*==============================================================*/
@@ -160,10 +170,11 @@ create table inscription
 /*==============================================================*/
 create table profmatiere
 (
+   idProfMat            int not null auto_increment,
    idUser               int not null,
-   idMat int,
-   statut            int,
-   primary key (idUser)
+   idMat                int not null,
+   statut               int,
+   primary key (idProfMat)
 );
 
 /*==============================================================*/
@@ -171,9 +182,11 @@ create table profmatiere
 /*==============================================================*/
 create table pedagogie
 (
+   idPed                int not null auto_increment,
    idUser               int not null,
+   idMatSerie           int not null,
    valide               bool,
-   primary key (idUser)
+   primary key (idPed)
 );
 
 /*==============================================================*/
@@ -181,10 +194,11 @@ create table pedagogie
 /*==============================================================*/
 create table matiereserie
 (
-   idMatSerie int not null,
-   idMat int,
-   idSerie int,
-   coefficient          int
+   idMatSerie           int not null auto_increment,
+   idMat                int not null,
+   idSerie              int not null,
+   coefficient          int,
+   primary key(idMatSerie)
 );
 
 alter table Classe add constraint FK_classeserie foreign key (idSerie)
