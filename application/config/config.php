@@ -10,7 +10,7 @@ function my_own_controllers($class) {
     }
   }
 }
- 
+
 spl_autoload_register('my_own_controllers');
 
 /*
@@ -35,7 +35,7 @@ spl_autoload_register('my_own_controllers');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/lycee';
+$config['base_url'] = 'http://localhost/projet';
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'french';
 
 /*
 |--------------------------------------------------------------------------

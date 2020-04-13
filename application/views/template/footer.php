@@ -40,5 +40,10 @@
 <script src="<?php echo base_url() . 'assets/dist/js/pages/dashboard.js' ?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() . 'assets/dist/js/demo.js' ?>"></script>
+<!-- DATATABLES -->
+<script src="<?php echo base_url() . 'assets/plugins/datatables/jquery.dataTables.js' ?>"></script>
+
+
+
 </body>
 </html>
